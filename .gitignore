@@ -39,3 +39,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# skill / agent config files (do not push)
+AGENTS.md
+CLAUDE.md
