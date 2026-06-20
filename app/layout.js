@@ -1,17 +1,12 @@
-import type { Metadata } from "next";
 import "./globals.css";
 
-export const metadata: Metadata = {
-  title: "Movie Finder — Discover Films You'll Love",
+export const metadata = {
+  title: "Movie Finder",
   description:
     "Browse, search, and save your favourite movies. Powered by OMDb. Built for Jeevan — Rishabh Chaudhary.",
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <head>

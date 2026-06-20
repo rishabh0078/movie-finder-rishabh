@@ -2,35 +2,14 @@
 
 import { useEffect, useState, useCallback } from 'react';
 import Image from 'next/image';
-import { Movie } from './MovieCard';
-
-interface MovieDetail extends Movie {
-  Plot: string;
-  Director: string;
-  Actors: string;
-  Genre: string;
-  Runtime: string;
-  Language: string;
-  Country: string;
-  Awards: string;
-  Rated: string;
-  Released: string;
-}
-
-interface DetailModalProps {
-  imdbID: string;
-  isFavorite: boolean;
-  onToggleFavorite: (movie: Movie) => void;
-  onClose: () => void;
-}
 
 export default function DetailModal({
   imdbID,
   isFavorite,
   onToggleFavorite,
   onClose,
-}: DetailModalProps) {
-  const [movie, setMovie] = useState<MovieDetail | null>(null);
+}) {
+  const [movie, setMovie] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
@@ -55,7 +34,7 @@ export default function DetailModal({
 
   // Close on ESC key
   useEffect(() => {
-    const handleKey = (e: KeyboardEvent) => {
+    const handleKey = (e) => {
       if (e.key === 'Escape') onClose();
     };
     window.addEventListener('keydown', handleKey);

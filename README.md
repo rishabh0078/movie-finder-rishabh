@@ -1,19 +1,19 @@
-# Movie Finder — Rishabh Chaudhary
+# Movie Finder 
 
 A cinematic Movie Discovery App built with **Next.js 16** and the **OMDb API**.
 
-**Live URL:** _[Add your Vercel/Netlify link here after deployment]_
+**Live URL:** : 
 
 ---
 
 ## Features
 
-- 🎬 **Browse** — Responsive grid of movies with poster, title, year, and rating
-- 🔍 **Search** — Live search-as-you-type with 450ms debounce
-- 📄 **Details** — Click any movie to open a full-detail modal (plot, cast, director, genres, awards)
-- ❤️ **Favorites** — Add/remove movies; persists across reloads via `localStorage`
-- ⏮⏭ **Pagination** — Manual Previous / Next buttons, exactly **12 movies per page**
-- ⏳ **States** — Skeleton loaders while fetching, error messages, and empty-state guidance
+- **Browse** — Responsive grid of movies with poster, title, year, and rating
+- **Search** — Live search-as-you-type with 450ms debounce
+- **Details** — Click any movie to open a full-detail modal (plot, cast, director, genres, awards)
+- **Favorites** — Add/remove movies; persists across reloads via `localStorage`
+- **Pagination** — Manual Previous / Next buttons, exactly **12 movies per page**
+- **States** — Skeleton loaders while fetching, error messages, and empty-state guidance
 
 ## Data Source
 
@@ -56,20 +56,14 @@ npm run start
 
 ---
 
-## Project Structure
-
-```
-
 ## Tech Stack
 
-| Layer | Technology |
-|-------|-----------|
-| Framework | Next.js 16 (App Router) |
-| Language | TypeScript |
-| Styling | Custom Vanilla CSS (no Tailwind) |
-| API | OMDb (free public movie API) |
-| Persistence | localStorage (favorites) |
-| Deployment | Vercel
+- **Framework:** Next.js 16
+- **Language:** JavaScript
+- **Styling:** Custom Vanilla CSS 
+- **API:** OMDb (free public movie API)
+- **Persistence:** localStorage (favorites)
+- **Deployment:** Vercel
 
 ---
 

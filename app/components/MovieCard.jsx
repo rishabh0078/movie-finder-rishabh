@@ -3,33 +3,17 @@
 import Image from 'next/image';
 import { useState } from 'react';
 
-export interface Movie {
-  imdbID: string;
-  Title: string;
-  Year: string;
-  Type: string;
-  Poster: string;
-  imdbRating?: string;
-}
-
-interface MovieCardProps {
-  movie: Movie;
-  isFavorite: boolean;
-  onToggleFavorite: (movie: Movie) => void;
-  onOpenDetail: (imdbID: string) => void;
-}
-
 export default function MovieCard({
   movie,
   isFavorite,
   onToggleFavorite,
   onOpenDetail,
-}: MovieCardProps) {
+}) {
   const [imgFailed, setImgFailed] = useState(false);
 
   const hasPoster = movie.Poster && movie.Poster !== 'N/A' && !imgFailed;
 
-  const handleFavClick = (e: React.MouseEvent) => {
+  const handleFavClick = (e) => {
     e.stopPropagation();
     onToggleFavorite(movie);
   };

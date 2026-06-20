@@ -2,19 +2,13 @@
 
 import { useState, useEffect, useCallback, useRef } from 'react';
 
-import MovieCard, { Movie } from './MovieCard';
+import MovieCard from './MovieCard';
 import DetailModal from './DetailModal';
 import Pagination from './Pagination';
 
 const FAVORITES_KEY = 'moviefinder_favorites';
 const DEFAULT_QUERY = 'marvel';
 const DEBOUNCE_MS = 450;
-
-interface FetchResult {
-  movies: Movie[];
-  totalResults: number;
-  totalPages: number;
-}
 
 function SkeletonGrid() {
   return (
@@ -33,19 +27,19 @@ function SkeletonGrid() {
 }
 
 export default function MovieApp() {
-  const [view, setView] = useState<'browse' | 'favorites'>('browse');
+  const [view, setView] = useState('browse');
   const [query, setQuery] = useState('');
   const [inputValue, setInputValue] = useState('');
   const [page, setPage] = useState(1);
-  const [movies, setMovies] = useState<Movie[]>([]);
+  const [movies, setMovies] = useState([]);
   const [totalPages, setTotalPages] = useState(0);
   const [totalResults, setTotalResults] = useState(0);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-  const [favorites, setFavorites] = useState<Movie[]>([]);
-  const [openMovieId, setOpenMovieId] = useState<string | null>(null);
+  const [favorites, setFavorites] = useState([]);
+  const [openMovieId, setOpenMovieId] = useState(null);
 
-  const debounceTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const debounceTimer = useRef(null);
 
   // Load favorites from localStorage on mount
   useEffect(() => {
@@ -83,7 +77,7 @@ export default function MovieApp() {
       const q = query || DEFAULT_QUERY;
       const res = await fetch(`/api/movies?q=${encodeURIComponent(q)}&page=${page}`);
       if (!res.ok) throw new Error('Network error');
-      const data: FetchResult = await res.json();
+      const data = await res.json();
       setMovies(data.movies || []);
       setTotalPages(data.totalPages || 0);
       setTotalResults(data.totalResults || 0);
@@ -100,21 +94,21 @@ export default function MovieApp() {
   }, [fetchMovies]);
 
   // Reset page when switching to browse
-  const handleViewChange = (newView: 'browse' | 'favorites') => {
+  const handleViewChange = (newView) => {
     setView(newView);
     if (newView === 'browse') {
       setPage(1);
     }
   };
 
-  const toggleFavorite = (movie: Movie) => {
+  const toggleFavorite = (movie) => {
     setFavorites((prev) => {
       const exists = prev.some((f) => f.imdbID === movie.imdbID);
       return exists ? prev.filter((f) => f.imdbID !== movie.imdbID) : [...prev, movie];
     });
   };
 
-  const isFavorite = (id: string) => favorites.some((f) => f.imdbID === id);
+  const isFavorite = (id) => favorites.some((f) => f.imdbID === id);
 
   const clearSearch = () => {
     setInputValue('');

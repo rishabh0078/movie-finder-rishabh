@@ -1,36 +1,21 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 
 const OMDB_API_KEY = process.env.OMDB_API_KEY;
 const OMDB_BASE = "https://www.omdbapi.com";
 const ITEMS_PER_PAGE = 12;
 
-interface OmdbMovie {
-  imdbID: string;
-  Title: string;
-  Year: string;
-  Type: string;
-  Poster: string;
-}
-
 // ── In-memory cache per query ──────────────────────────────────
 // We accumulate ALL results (including N/A posters — client handles those)
 // so we can serve any page without re-fetching from OMDb.
-interface CacheEntry {
-  allMovies: OmdbMovie[];
-  omdbPagesFetched: number;
-  totalOmdbResults: number;
-  timestamp: number;
-}
-
-const queryCache = new Map<string, CacheEntry>();
+const queryCache = new Map();
 const CACHE_TTL_MS = 5 * 60 * 1000; // 5 minutes
 
-function getOrCreateCache(query: string): CacheEntry {
+function getOrCreateCache(query) {
   const existing = queryCache.get(query);
   if (existing && Date.now() - existing.timestamp < CACHE_TTL_MS) {
     return existing;
   }
-  const fresh: CacheEntry = {
+  const fresh = {
     allMovies: [],
     omdbPagesFetched: 0,
     totalOmdbResults: 0,
@@ -41,10 +26,7 @@ function getOrCreateCache(query: string): CacheEntry {
 }
 
 /** Fetch one OMDb search page (10 results) */
-async function fetchOmdbPage(
-  query: string,
-  page: number
-): Promise<{ movies: OmdbMovie[]; totalResults: number }> {
+async function fetchOmdbPage(query, page) {
   try {
     const res = await fetch(
       `${OMDB_BASE}/?s=${encodeURIComponent(query)}&type=movie&page=${page}&apikey=${OMDB_API_KEY}`
@@ -60,7 +42,7 @@ async function fetchOmdbPage(
   }
 }
 
-export async function GET(request: NextRequest) {
+export async function GET(request) {
   const { searchParams } = new URL(request.url);
   const query = searchParams.get("q") || "marvel";
   const ourPage = parseInt(searchParams.get("page") || "1", 10);
@@ -93,7 +75,7 @@ export async function GET(request: NextRequest) {
       const batchStart = entry.omdbPagesFetched + 1;
       const batchEnd = Math.min(batchStart + 2, maxOmdbPages);
 
-      const fetches: Promise<{ movies: OmdbMovie[]; totalResults: number }>[] = [];
+      const fetches = [];
       for (let p = batchStart; p <= batchEnd; p++) {
         fetches.push(fetchOmdbPage(query, p));
       }

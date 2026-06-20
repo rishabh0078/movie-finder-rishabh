@@ -1,20 +1,12 @@
 'use client';
 
-interface PaginationProps {
-  currentPage: number;
-  totalPages: number;
-  onPrev: () => void;
-  onNext: () => void;
-  loading: boolean;
-}
-
 export default function Pagination({
   currentPage,
   totalPages,
   onPrev,
   onNext,
   loading,
-}: PaginationProps) {
+}) {
   if (totalPages <= 1) return null;
 
   return (
