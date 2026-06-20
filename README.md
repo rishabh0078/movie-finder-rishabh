@@ -2,7 +2,7 @@
 
 A cinematic Movie Discovery App built with **Next.js 16** and the **OMDb API**.
 
-**Live URL:** : 
+**Live URL:** : https://movie-finder-rishabh.vercel.app/
 
 ---
 
@@ -32,14 +32,14 @@ A cinematic Movie Discovery App built with **Next.js 16** and the **OMDb API**.
 
 ```bash
 # 1. Clone the repository
-git clone https://github.com/[your-username]/movie-finder-rishabh.git
+git clone https://github.com/rishabh0078/movie-finder-rishabh.git
 cd movie-finder-rishabh
 
 # 2. Install dependencies
 npm install
 
 # 3. Create the environment file
-echo "OMDB_API_KEY=a84bca14" > .env.local
+.env  "OMDB_API_KEY=a84bca14" 
 
 # 4. Start the development server
 npm run dev
