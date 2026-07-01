@@ -60,4 +60,4 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ---
 
-Built for **Jeevan** — Rishabh Chaudhary
+Built by Rishabh Chaudhary
